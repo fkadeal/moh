@@ -49,6 +49,7 @@ const CheckoutInterface = () => {
   }, []);
 
   const handleInitiatePayment = async () => {
+     window.open("https://checkout.birrlink.et/checkout/BL-c89b9e74-065b-41ad-ac91-80bf371eab87", "_blank");
     if (!selectedPaymentMethod) {
       toast({
         title: "Payment Method Required",
@@ -121,7 +122,7 @@ const CheckoutInterface = () => {
           description: "Redirecting to payment page...",
         });
 
-        window.open(paymentResponse.redirect_url, "_blank");
+       
       } else {
         throw new Error("Failed to initiate payment");
       }
