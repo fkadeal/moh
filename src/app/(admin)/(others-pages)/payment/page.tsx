@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import CheckoutInterface from "@/components/CheckoutInterface";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { Metadata } from "next";
