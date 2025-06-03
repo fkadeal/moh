@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     // !! This disables type checking during the build !!
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: ["images.unsplash.com"],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
