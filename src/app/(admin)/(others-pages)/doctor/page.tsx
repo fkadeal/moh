@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import DoctorInterface from "@/components/DoctorInterface";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { Metadata } from "next";
