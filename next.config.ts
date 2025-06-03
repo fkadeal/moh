@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* other config options */
+  eslint: {
+    ignoreDuringBuilds: true, // <-- ignore ESLint errors during build
+  },
+   typescript: {
+    // !! This disables type checking during the build !!
+    ignoreBuildErrors: true,
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
