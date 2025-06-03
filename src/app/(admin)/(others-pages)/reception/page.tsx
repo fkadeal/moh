@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import ReceptionInterface from "@/components/ReceptionInterface";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { Metadata } from "next";
