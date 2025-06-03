@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import CashierInterface from "@/components/CashierInterface";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
