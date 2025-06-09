@@ -34,6 +34,11 @@ const navItems: NavItem[] = [
     name: "Calendar",
     path: "/calendar",
   },
+   {
+    icon: <UserCircleIcon />,
+    name: "Receptionist",
+    path: "/reception",
+  },
   {
     icon: <UserIcon />,
     name: "Doctor",
@@ -44,11 +49,7 @@ const navItems: NavItem[] = [
     name: "Cashier",
     path: "/casher",
   },
-  {
-    icon: <UserCircleIcon />,
-    name: "Receptionist",
-    path: "/reception",
-  },
+ 
   {
     icon: <DollarLineIcon />,
     name: "Payment",

@@ -226,7 +226,7 @@ const CheckoutInterface = () => {
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Choose payment method" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="  bg-white">
                   {paymentMethods.map((method) => (
                     <SelectItem key={method.id} value={method.id}>
                       <div className="flex items-center">
@@ -237,6 +237,7 @@ const CheckoutInterface = () => {
                   ))}
                 </SelectContent>
               </Select>
+ 
             </div>
 
             <Button

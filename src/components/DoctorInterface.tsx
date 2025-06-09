@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,10 +45,18 @@ const DoctorInterface = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [consultation, setConsultation] = useState('');
   const [selectedTests, setSelectedTests] = useState<string[]>([]);
+  const [patients, setPatients] = useState<Patient[]>([]);
   const { toast } = useToast();
 
-  const patients: Patient[] = JSON.parse(localStorage.getItem('patients') || '[]');
-
+  // const patients: Patient[] = JSON.parse(localStorage.getItem('patients') || '[]');
+  
+  useEffect(() => {
+    // This runs only on the client side
+    const storedPatients = localStorage.getItem('patients');
+    if (storedPatients) {
+      setPatients(JSON.parse(storedPatients));
+    }
+  }, []);
   const filteredPatients = patients.filter((patient) =>
     patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     patient.phone.includes(searchTerm) ||
