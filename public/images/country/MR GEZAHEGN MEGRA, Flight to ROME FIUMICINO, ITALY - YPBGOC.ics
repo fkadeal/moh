@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+PRODID:-//Sabre Traveler Communication Itinerary//iCal4j 1.0//EN
+VERSION:2.0
+METHOD:PUBLISH
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+DTSTAMP:20250611T082904Z
+DTSTART:20250612T200000Z
+DTEND:20250613T023000Z
+SUMMARY:MR GEZAHEGN MEGRA\, Flight to ROME FIUMICINO\, ITALY - YPBGOC
+TZID:Europe/London
+UID:20250611T082904Z-iCalUidGenForSVT@documents-blue-56949984bc-mv8sp
+LOCATION:ADDIS ABABA\, ETHIOPIA
+DESCRIPTION:Flight: ETHIOPIAN AIRLINES\, ET 0552\n\nFrom: ADDIS ABABA\, E
+ THIOPIA (ADD)\n\nDeparts: Thursday\, 12 June 2025 23:00\n\nDeparting Ter
+ minal: TERMINAL 2\n\nTo: ROME FIUMICINO\, ITALY (FCO)\n\nArrives: Friday
+ \, 13 June 2025 04:30\n\nArrival Terminal: TERMINAL 3\n\nCabin: Economy\
+ n\nAirline Reservation Code: YPOYFE\n\nSeat(s): 27C\, 27C\n\nStatus: Con
+ firmed\n\nMeals: Meals\, Snack\n\nAircraft: 350\n\nDistance (in Miles): 
+ 2780\n\nStop(s): Intermediate at ROME FIUMICINO\, ITALY \n Change of equ
+ ipment may be required\n\nSmoking: No\n\nDuration: 6hr(s) 30min(s)\n\nRe
+ servation Code: YPBGOC\n\nTicket Number: 0712836195825
+ORGANIZER:MAILTO:STC[noreply@sabre.com]
+END:VEVENT
+END:VCALENDAR

@@ -38,6 +38,8 @@ const CheckoutInterface = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [processing, setProcessing] = useState(false);
+    const [message, setMessage] = useState('');
+
   const [data, setData] = useState<any>(null);
   const { toast } = useToast();
 
@@ -48,8 +50,42 @@ const CheckoutInterface = () => {
     }
   }, []);
 
+  useEffect(() => {
+    // Run only on client
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status');
+      const billId = urlParams.get('billId');
+
+      if (status?.toLowerCase().includes('success') && billId) {
+        // Get payments from localStorage
+        const paymentsStr = localStorage.getItem('payments');
+        if (paymentsStr) {
+          let payments = JSON.parse(paymentsStr);
+
+          // Find payment with matching billId
+          const paymentIndex = payments.findIndex((p: any) => p.billId === billId);
+          if (paymentIndex !== -1) {
+            const payment = payments[paymentIndex];
+
+            // Update status to 'completed'
+            payments[paymentIndex].status = 'completed';
+            localStorage.setItem('payments', JSON.stringify(payments));
+
+            // Show popup message
+            setMessage(`✅ Hello ${payment.patientName}, your payment was successful!`);
+          } else {
+            setMessage('❌ Payment not found.');
+          }
+        } else {
+          setMessage('❌ No payments found in localStorage.');
+        }
+      }
+    }
+  }, []);
+
   const handleInitiatePayment = async () => {
-     window.open("https://checkout.birrlink.et/checkout/BL-c89b9e74-065b-41ad-ac91-80bf371eab87", "_blank");
+    //  window.open("https://checkout.birrlink.et/checkout/BL-c89b9e74-065b-41ad-ac91-80bf371eab87", "_blank");
     if (!selectedPaymentMethod) {
       toast({
         title: "Payment Method Required",
@@ -72,18 +108,21 @@ const CheckoutInterface = () => {
 
     try {
       const response = await fetch("https://api.birrlink.et/api/v1/payments", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "api-key": "dTY1mcrRJq65OuPeLBdIo_QLtGUi7nshfSGEtISUCkE",
-  },
-  body: JSON.stringify({
-    amount: data.total,
-    currency: "ETB",
-    phone_number: phoneNumber,
-    title: `Lab Tests Payment - ${data.patientName} (${data.visitId})`,
-  }),
-});
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": "zHAh2b1XAIVxrOTJZ5KGmJSZFH2aXA1C",
+        },
+        body: JSON.stringify({
+          amount: data.total,
+          currency: "ETB",
+          phone_number: phoneNumber,
+          order_id:data.billId,
+          return_url:  "https://tenapay.birrlink.et/payment?status=success&billId=" + data.billId,
+          title: "Payment for Bill " + data.billId,
+          description: "Payment for services rendered",
+        }),
+      });
 
 
       if (!response.ok) {
@@ -117,6 +156,8 @@ const CheckoutInterface = () => {
         existingPayments.push(paymentRecord);
         localStorage.setItem("payments", JSON.stringify(existingPayments));
 
+        window.open(`${paymentResponse.redirect_url}`, "_blank");
+
         toast({
           title: "Payment Initiated",
           description: "Redirecting to payment page...",
@@ -138,6 +179,42 @@ const CheckoutInterface = () => {
       setProcessing(false);
     }
   };
+ 
+
+   if (message) {
+    return (
+      <div className="min-h-screen p-6 bg-gray-50">
+  <div className="max-w-4xl mx-auto">
+    <Card>
+      <CardContent className="text-center py-12">
+        <div className="flex flex-col items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-16 h-16 text-green-500 mb-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            Payment Successful
+          </h2>
+          <p className="text-gray-600 text-lg">
+            <span className="font-medium text-green-600">{message}</span>
+          </p>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+</div>
+
+      )}
 
   if (!data) {
     return (
